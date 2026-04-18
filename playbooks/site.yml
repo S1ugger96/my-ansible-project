@@ -1,0 +1,7 @@
+---
+- name: Установить и настроить Apache
+  hosts: local
+  become: yes
+
+  roles:
+    - apache

@@ -1,0 +1,15 @@
+---
+- name: Тест Ansible Vault
+  hosts: local
+  become: false
+
+  tasks:
+    - name: Показать секретные переменные
+      debug:
+        msg: "Пароль БД: {{ db_password }}, API ключ: {{ api_key }}"
+
+    - name: Создать файл с секретом
+      copy:
+        content: "db_password={{ db_password }}\n"
+        dest: /tmp/secret_config.txt
+        mode: '0600'

@@ -1,0 +1,30 @@
+---
+
+- name: first task
+  hosts: local
+  become: false
+  vars:
+    my_name: dmitriy
+    version: "1.0"
+  tasks:
+    - name: make directory
+      file:
+        path: /tmp/myproject
+        state: directory
+
+
+    - name: make file
+      copy:
+        content: "Project: {{ my_name }}, version: {{ version }}\n"
+        dest: /tmp/myproject/info.txt
+
+
+    - name: read file
+      command: cat //tmp/myproject/info.txt
+      register: result
+      changed_when: false
+
+
+    - name: output result
+      debug:
+        msg: "{{ result.stdout }}"    

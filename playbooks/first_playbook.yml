@@ -1,0 +1,41 @@
+---
+- name: Мой первый playbook
+  hosts: local
+  become: false
+
+  tasks:
+    - name: Проверить соединение
+      ping:
+
+    - name: Создать папку
+      file:
+        path: /tmp/ansible_test
+        state: directory
+        mode: '0755'
+
+    - name: Создать файл с текстом
+      copy:
+        content: "Привет от Ansible!\n"
+        dest: /tmp/ansible_test/hello.txt
+
+    - name: Показать содержимое файла
+      command: cat /tmp/ansible_test/hello.txt
+      register: file_content
+      changed_when: false
+
+    - name: Вывести результат
+      debug:
+        msg: "{{ file_content.stdout }}"
+    - name: Узнать имя текущего пользователя
+      command: whoami
+      register: my_user
+      changed_when: false
+
+    - name: Узнать текущую дату
+      command: date
+      register: today
+      changed_when: false
+
+    - name: Вывести оба результата
+      debug:
+        msg: "Пользователь: {{ my_user.stdout }}, Дата: {{ today.stdout }}"    

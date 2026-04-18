@@ -1,0 +1,30 @@
+---
+- name: Zadanie block/rescue/always - обработка ошибок
+  hosts: local
+  become: no
+
+  tasks:
+    - block:
+        - name: Прочитать несуществующий файл
+          command: cat /tmp/nonexistent.txt
+          register: file_content
+          changed_when: false
+
+        - name: Вывести содержимое (если файл существует)
+          debug:
+            msg: "Содержимое файла: {{ file_content.stdout }}"
+
+      rescue:
+        - name: Сообщение об ошибке
+          debug:
+            msg: "⚠️ Файл не найден, создаём новый"
+
+        - name: Создать файл /tmp/nonexistent.txt
+          copy:
+            content: "Создан через rescue"
+            dest: /tmp/nonexistent.txt
+
+      always:
+        - name: Завершение работы
+          debug:
+            msg: "✅ Работа завершена"
