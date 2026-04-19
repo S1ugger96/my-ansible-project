@@ -1,0 +1,20 @@
+name: Ansible Check
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Скачать код из репозитория
+        uses: actions/checkout@v3
+
+      - name: Установить ansible-lint
+        run: pip install ansible-lint
+
+      - name: Проверить плейбуки
+        run: ansible-lint playbooks/
