@@ -1,0 +1,5 @@
+warn_list:
+  - fqcn[action-core]
+  - name[missing]
+  - yaml[truthy]
+  - risky-file-permissions
