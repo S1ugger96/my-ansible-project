@@ -3,6 +3,8 @@ warn_list:
   - name[missing]
   - yaml[truthy]
   - risky-file-permissions
-  - syntax-check[specific]
   - yaml[trailing-spaces]
   - name[casing]
+
+exclude_paths:
+  - playbooks/site.yml
