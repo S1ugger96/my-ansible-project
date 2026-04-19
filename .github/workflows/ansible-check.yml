@@ -13,8 +13,11 @@ jobs:
       - name: Скачать код из репозитория
         uses: actions/checkout@v3
 
-      - name: Установить ansible-lint
-        run: pip install ansible-lint
+      - name: Установить Ansible
+        run: pip install ansible ansible-lint
+
+      - name: Установить роли из requirements.yml
+        run: ansible-galaxy install -r requirements.yml
 
       - name: Проверить плейбуки
         run: ansible-lint playbooks/
